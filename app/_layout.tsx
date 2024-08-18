@@ -30,7 +30,7 @@ export default function RootLayout() {
 
     return (
         <AppProvider>
-            <Stack>
+            <Stack initialRouteName={'(tabs)'}>
                 <Stack.Screen
                     name={'(tabs)'}
                     options={{

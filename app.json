@@ -1,40 +1,40 @@
 {
   "expo": {
-    "name": "catographer",
-    "slug": "catographer",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "icon": "./assets/images/cat-icon.png",
     "ios": {
       "supportsTablet": true
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+    "name": "catographer",
+    "orientation": "portrait",
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ]
+    ],
+    "scheme": "myapp",
+    "slug": "catographer",
+    "splash": {
+      "image": "./assets/images/catographer-splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "black"
     },
+    "userInterfaceStyle": "automatic",
+    "version": "1.0.0",
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-router",
-      "expo-font"
-    ],
-    "experiments": {
-      "typedRoutes": true
     }
   }
 }

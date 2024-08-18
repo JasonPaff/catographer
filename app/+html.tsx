@@ -8,6 +8,7 @@ export default function Root({ children }: RequiredChildren) {
     return (
         <html lang={'en'}>
             <head>
+                <title>Catographer</title>
                 <meta charSet={'utf-8'} />
                 <meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 
