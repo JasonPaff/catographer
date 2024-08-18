@@ -11,9 +11,14 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, View, XStack, isWeb } from "tamagui";
+import { mediaLibraryName } from "../constants/albums";
 import { useBoolean } from "../hooks/useBoolean";
 
-const mediaLibraryName = "catographer-app";
+const styles = StyleSheet.create({
+	camera: {
+		flex: 1,
+	},
+});
 
 export default function TakePhoto() {
 	const [facing, setFacing] = useState<CameraType>("back");
@@ -34,20 +39,6 @@ export default function TakePhoto() {
 		if (!cameraPermission?.granted) void requestCameraPermission();
 		if (!mediaPermission?.granted) void requestMediaPermission();
 	}, [cameraPermission, mediaPermission, requestCameraPermission, requestMediaPermission]);
-
-	// handle camera facing change
-	const onFacingChange = useCallback(() => {
-		setFacing((current) => {
-			return current === "back" ? "front" : "back";
-		});
-	}, []);
-
-	// handle flash change
-	const onFlashChange = useCallback(() => {
-		return setFlash((current) => {
-			return current === "on" ? "off" : "on";
-		});
-	}, []);
 
 	// handle taking the photo
 	const onTakePhoto = useCallback(() => {
@@ -75,7 +66,7 @@ export default function TakePhoto() {
 
 			// add the photo to the existing photo album
 			if (album) {
-				await addAssetsToAlbumAsync(asset, album, false)
+				await addAssetsToAlbumAsync(asset, album)
 					.then(() => {
 						toast.show("Photo Saved!", {
 							duration: 2000,
@@ -92,7 +83,7 @@ export default function TakePhoto() {
 
 			// add the photo to a new photo album
 			if (!album) {
-				await createAlbumAsync(mediaLibraryName, asset.id, false)
+				await createAlbumAsync(mediaLibraryName, asset.id)
 					.then(() => {
 						toast.show("Photo Saved!", {
 							duration: 2000,
@@ -133,7 +124,7 @@ export default function TakePhoto() {
 								alignSelf={"flex-end"}
 								chromeless
 								icon={<SwitchCamera size={25} />}
-								onPress={onFacingChange}
+								onPress={() => setFacing((current) => (current === "back" ? "front" : "back"))}
 							/>
 						)}
 						{/* take a photo */}
@@ -150,7 +141,7 @@ export default function TakePhoto() {
 								alignSelf={"flex-end"}
 								chromeless
 								icon={flash === "on" ? <Zap size={25} /> : <ZapOff size={25} />}
-								onPress={onFlashChange}
+								onPress={() => setFlash((current) => (current === "on" ? "off" : "on"))}
 							/>
 						)}
 						{/* change torch mode */}
@@ -168,9 +159,3 @@ export default function TakePhoto() {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	camera: {
-		flex: 1,
-	},
-});
