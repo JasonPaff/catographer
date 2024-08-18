@@ -2,7 +2,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import "../tamagui-web.css";
-import { useKeepAwake } from "expo-keep-awake";
+import { KeepAwake } from "./components/keep-awake";
 import AppProvider from "./providers/app-provider";
 
 // catch any errors thrown by the Layout component.
@@ -17,10 +17,6 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-	// keep the app awake while it's open.
-	// TODO: remove before production.
-	useKeepAwake();
-
 	const [interLoaded, interError] = useFonts({
 		Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
 		InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
@@ -54,6 +50,9 @@ export default function RootLayout() {
 					}}
 				/>
 			</Stack>
+
+			{/* always keep the app awake in development mode. */}
+			{process.env.DEV === "true" && <KeepAwake />}
 		</AppProvider>
 	);
 }
