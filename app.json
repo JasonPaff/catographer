@@ -1,48 +1,46 @@
 {
-  "expo": {
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "experiments": {
-      "typedRoutes": true
-    },
-    "icon": "./assets/images/cat-icon.png",
-    "ios": {
-      "supportsTablet": true
-    },
-    "name": "catographer",
-    "orientation": "portrait",
-    "plugins": [
-      "expo-router",
-      "expo-font",
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
-        }
-      ],
-      [
-        "expo-media-library",
-        {
-          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
-          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
-          "isAccessMediaLocationEnabled": true
-        }
-      ]
-    ],
-    "scheme": "myapp",
-    "slug": "catographer",
-    "splash": {
-      "image": "./assets/images/catographer-splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "black"
-    },
-    "userInterfaceStyle": "automatic",
-    "version": "1.0.0",
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    }
-  }
+	"expo": {
+		"assetBundlePatterns": ["**/*"],
+		"experiments": {
+			"typedRoutes": true
+		},
+		"icon": "./assets/images/cat-icon.png",
+		"ios": {
+			"supportsTablet": true
+		},
+		"name": "catographer",
+		"orientation": "portrait",
+		"plugins": [
+			"expo-router",
+			"expo-font",
+			[
+				"expo-camera",
+				{
+					"cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+				}
+			],
+			[
+				"expo-media-library",
+				{
+					"photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+					"savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+					"isAccessMediaLocationEnabled": true
+				}
+			]
+		],
+		"scheme": "myapp",
+		"slug": "catographer",
+		"splash": {
+			"image": "./assets/images/catographer-splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "black"
+		},
+		"userInterfaceStyle": "automatic",
+		"version": "1.0.0",
+		"web": {
+			"bundler": "metro",
+			"output": "static",
+			"favicon": "./assets/images/favicon.png"
+		}
+	}
 }

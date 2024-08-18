@@ -1,0 +1,30 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+	"organizeImports": {
+		"enabled": true,
+		"ignore": ["./.tamagui/**/*", "./.expo/**/*"]
+	},
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "single",
+			"semicolons": "always"
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"ignore": ["./.tamagui/**/*", "./.expo/**/*"],
+		"rules": {
+			"recommended": true,
+			"security": {
+				"noDangerouslySetInnerHtml": "off"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true,
+		"ignore": ["./.tamagui/**/*", "./.expo/**/*"],
+		"indentWidth": 4,
+		"lineWidth": 120,
+		"lineEnding": "crlf"
+	}
+}
