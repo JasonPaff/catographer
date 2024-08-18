@@ -52,7 +52,7 @@ export default function RootLayout() {
 			</Stack>
 
 			{/* always keep the app awake in development mode. */}
-			{process.env.DEV === "true" && <KeepAwake />}
+			{process.env.NODE_ENV === "development" && <KeepAwake />}
 		</AppProvider>
 	);
 }

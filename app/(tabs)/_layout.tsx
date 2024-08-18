@@ -15,7 +15,6 @@ export default function TabLayout() {
 				name={"index"}
 				options={{
 					headerRight: CatImage,
-					lazy: true,
 					title: "Cats",
 					tabBarIcon: ({ color }) => <Cat color={color} />,
 				}}
@@ -23,7 +22,7 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name={"camera"}
 				options={{
-					headerRight: CatImage,
+					headerShown: false,
 					lazy: true,
 					tabBarIcon: ({ color }) => <Camera color={color} />,
 					title: "Camera",
@@ -33,9 +32,9 @@ export default function TabLayout() {
 				name={"settings"}
 				options={{
 					headerRight: CatImage,
-					lazy: true,
 					tabBarIcon: ({ color }) => <Settings color={color} />,
 					title: "Settings",
+					unmountOnBlur: true,
 				}}
 			/>
 		</Tabs>
