@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default function TakePhoto() {
+export default function CameraScreen() {
 	const [facing, setFacing] = useState<CameraType>("back");
 	const [flash, setFlash] = useState<FlashMode>("off");
 
