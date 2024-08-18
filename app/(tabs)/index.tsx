@@ -2,8 +2,9 @@ import { Plus } from "@tamagui/lucide-icons";
 import { eq } from "drizzle-orm";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Text, View, YStack } from "tamagui";
+import { AddCat } from "../../components/cats/add-cat";
 import { catsTable } from "../../database/schemas/cat-schema";
-import { useDatabase } from "../../hooks/useDatabase";
+import { useDatabase } from "../../hooks/use-database";
 
 type Cats = typeof catsTable.$inferSelect;
 
@@ -44,6 +45,7 @@ export default function Cats() {
 	return (
 		<View alignItems={"center"} flex={1}>
 			<YStack gap={"$2"} marginTop={"$6"}>
+				<AddCat />
 				<Button alignSelf={"center"} icon={<Plus size={25} />} onPress={onAddCat} size={"$2.5"} />
 				<Button onPress={onRemoveCat}>Remove All Taco Cats</Button>
 			</YStack>

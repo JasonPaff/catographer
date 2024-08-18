@@ -3,7 +3,7 @@ import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import "../tamagui-web.css";
 import { KeepAwake } from "../components/keep-awake";
-import AppProvider from "../providers/app-provider";
+import { AppProvider } from "../providers/app-provider";
 
 // catch any errors thrown by the Layout component.
 export { ErrorBoundary } from "expo-router";

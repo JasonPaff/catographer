@@ -6,7 +6,7 @@ import DatabaseProvider from "./database-provider";
 import ThemeProvider from "./theme-provider";
 import ToastProvider from "./toast-provider";
 
-export default function AppProvider({ children, ...props }: Omit<TamaguiProviderProps, "config">) {
+export function AppProvider({ children, ...props }: Omit<TamaguiProviderProps, "config">) {
 	const colorScheme = useColorScheme();
 
 	const defaultTheme = useMemo(() => (colorScheme === "dark" ? "dark" : "light"), [colorScheme]);

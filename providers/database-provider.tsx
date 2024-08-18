@@ -1,7 +1,7 @@
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { openDatabaseSync } from "expo-sqlite";
-import { databaseContext } from "hooks/useDatabase";
+import { databaseContext } from "hooks/use-database";
 import { Text, View } from "tamagui";
 import { databaseName } from "../constants/database";
 import migrations from "../database/migrations/migrations";
