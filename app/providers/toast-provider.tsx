@@ -1,11 +1,11 @@
-import { ToastProvider as Provider, ToastViewport } from '@tamagui/toast';
+import { ToastProvider as Provider } from '@tamagui/toast';
 import { Toaster } from '../toaster';
 
 export default function ToastProvider({ children }: RequiredChildren) {
     return (
         <Provider
             burntOptions={{ from: 'bottom' }}
-            duration={115000}
+            duration={3000}
             native={
                 [
                     /* uncomment the next line to do native toasts on mobile */
@@ -16,7 +16,6 @@ export default function ToastProvider({ children }: RequiredChildren) {
         >
             {children}
             <Toaster />
-            <ToastViewport bottom={'$10'} left={0} right={0} />
         </Provider>
     );
 }

@@ -1,31 +1,39 @@
 import { Camera, Lightbulb, LightbulbOff, SwitchCamera, Zap, ZapOff } from '@tamagui/lucide-icons';
+import { useToastController } from '@tamagui/toast';
+import { type CameraType, CameraView, type FlashMode, useCameraPermissions } from 'expo-camera';
 import {
-    type CameraCapturedPicture,
-    type CameraType,
-    CameraView,
-    Camera as ExpoCamera,
-    type FlashMode,
-} from 'expo-camera';
+    addAssetsToAlbumAsync,
+    createAlbumAsync,
+    createAssetAsync,
+    getAlbumAsync,
+    usePermissions as useMediaLibraryPermissions,
+} from 'expo-media-library';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, Text, View, XStack } from 'tamagui';
+import { Button, isWeb, View, XStack } from 'tamagui';
+import { useBoolean } from '../hooks/useBoolean';
+
+const mediaLibraryName = 'catographer-app';
 
 export default function TakePhoto() {
     const [facing, setFacing] = useState<CameraType>('back');
     const [flash, setFlash] = useState<FlashMode>('off');
-    const [torch, setTorch] = useState(false);
-    const [hasCameraPermission, setHasCameraPermission] = useState(false);
-    const [isCameraReady, setIsCameraReady] = useState(false);
 
-    const [photo, setPhoto] = useState<CameraCapturedPicture>();
+    const [cameraReady, setCameraReady] = useBoolean();
+    const [torch, setTorch] = useBoolean();
 
     const cameraRef = useRef<CameraView | null>(null);
 
+    const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+    const [mediaPermission, requestMediaPermission] = useMediaLibraryPermissions({ granularPermissions: ['photo'] });
+
+    const toast = useToastController();
+
+    // request camera and media permissions
     useEffect(() => {
-        ExpoCamera.requestCameraPermissionsAsync().then((result) => {
-            setHasCameraPermission(result.status === 'granted');
-        });
-    }, []);
+        if (!cameraPermission?.granted) void requestCameraPermission();
+        if (!mediaPermission?.granted) void requestMediaPermission();
+    }, [cameraPermission, mediaPermission]);
 
     // handle camera facing change
     const onFacingChange = useCallback(() => {
@@ -41,41 +49,65 @@ export default function TakePhoto() {
         });
     }, []);
 
-    // handle torch change
-    const onTorchChange = useCallback(() => {
-        return setTorch((current) => {
-            return !current;
-        });
-    }, []);
-
     // handle taking the photo
     const onTakePhoto = useCallback(() => {
         if (!cameraRef.current) return;
-        cameraRef.current.takePictureAsync().then((photo) => {
-            setPhoto(photo);
+        cameraRef.current.takePictureAsync().then(async (photo) => {
+            if (!photo) return;
+
+            // turn the photo into an asset
+            const asset = await createAssetAsync(photo.uri).catch((reason) => {
+                toast.show('Error!', {
+                    message: 'Unable to create photo asset.',
+                    status: 'error',
+                });
+                return;
+            });
+            if (!asset) return;
+
+            // find existing media library album
+            let album = await getAlbumAsync(mediaLibraryName).catch(() => {
+                toast.show('Error!', {
+                    message: 'Unable to locate photo album.',
+                    status: 'error',
+                });
+            });
+
+            // add the photo to the existing photo album
+            if (album) {
+                await addAssetsToAlbumAsync(asset, album, false)
+                    .then(() => {
+                        toast.show('Photo Saved!', {
+                            duration: 2000,
+                            message: 'Your photo has been saved.',
+                        });
+                    })
+                    .catch(() => {
+                        toast.show('Error!', {
+                            message: 'Unable to save photo.',
+                            status: 'error',
+                        });
+                    });
+            }
+
+            // add the photo to a new photo album
+            if (!album) {
+                album = await createAlbumAsync(mediaLibraryName, asset.id, false)
+                    .then(() => {
+                        toast.show('Photo Saved!', {
+                            duration: 2000,
+                            message: 'Your photo has been saved.',
+                        });
+                    })
+                    .catch(() => {
+                        toast.show('Error!', {
+                            message: 'Unable to create photo album.',
+                            status: 'error',
+                        });
+                    });
+            }
         });
     }, []);
-
-    // camera permissions are still loading.
-    if (hasCameraPermission === undefined) return <Text>Requesting permissions...</Text>;
-
-    // camera permissions are not granted yet.
-    if (!hasCameraPermission) {
-        return (
-            <View>
-                <Text>We need your permission to show the camera</Text>
-                <Button
-                    onPress={() => {
-                        ExpoCamera.requestCameraPermissionsAsync().then((result) => {
-                            setHasCameraPermission(result.status === 'granted');
-                        });
-                    }}
-                >
-                    Grant Permission
-                </Button>
-            </View>
-        );
-    }
 
     return (
         <View flex={1}>
@@ -83,31 +115,53 @@ export default function TakePhoto() {
                 enableTorch={torch}
                 facing={facing}
                 flash={flash}
-                onCameraReady={() => setIsCameraReady(true)}
+                onCameraReady={setCameraReady.on}
                 ref={cameraRef}
                 style={styles.camera}
             >
-                {isCameraReady && (
-                    <XStack alignSelf={'center'} flex={1} flexDirection={'row'} gap={'$4'}>
+                {cameraReady && cameraPermission?.granted && (
+                    <XStack
+                        alignSelf={'center'}
+                        flex={1}
+                        flexDirection={'row'}
+                        gap={'$4'}
+                        marginBottom={isWeb ? '$2' : undefined}
+                    >
+                        {/* change camera facing */}
+                        {!isWeb && (
+                            <Button
+                                alignSelf={'flex-end'}
+                                chromeless
+                                icon={<SwitchCamera size={25} />}
+                                onPress={onFacingChange}
+                            />
+                        )}
+                        {/* take a photo */}
                         <Button
                             alignSelf={'flex-end'}
                             chromeless
-                            icon={<SwitchCamera size={25} />}
-                            onPress={onFacingChange}
+                            icon={<Camera size={25} />}
+                            onPress={onTakePhoto}
+                            size={isWeb ? '$3' : undefined}
                         />
-                        <Button alignSelf={'flex-end'} chromeless icon={<Camera size={25} />} onPress={onTakePhoto} />
-                        <Button
-                            alignSelf={'flex-end'}
-                            chromeless
-                            icon={flash === 'on' ? <Zap size={25} /> : <ZapOff size={25} />}
-                            onPress={onFlashChange}
-                        />
-                        <Button
-                            alignSelf={'flex-end'}
-                            chromeless
-                            icon={torch ? <Lightbulb size={25} /> : <LightbulbOff size={25} />}
-                            onPress={onTorchChange}
-                        />
+                        {/* change flash mode */}
+                        {!isWeb && (
+                            <Button
+                                alignSelf={'flex-end'}
+                                chromeless
+                                icon={flash === 'on' ? <Zap size={25} /> : <ZapOff size={25} />}
+                                onPress={onFlashChange}
+                            />
+                        )}
+                        {/* change torch mode */}
+                        {!isWeb && (
+                            <Button
+                                alignSelf={'flex-end'}
+                                chromeless
+                                icon={torch ? <Lightbulb size={25} /> : <LightbulbOff size={25} />}
+                                onPress={setTorch.toggle}
+                            />
+                        )}
                     </XStack>
                 )}
             </CameraView>
