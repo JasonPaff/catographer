@@ -1,7 +1,7 @@
 import { Toast, ToastViewport, useToastState } from "@tamagui/toast";
 import { XIcon } from "lucide-react";
 import { Button, View, isWeb } from "tamagui";
-import { useBoolean } from "./hooks/useBoolean";
+import { useBoolean } from "../hooks/useBoolean";
 
 export function Toaster() {
 	const [hideClose, setHideClose] = useBoolean(true);

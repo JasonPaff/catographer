@@ -11,8 +11,8 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Button, View, XStack, isWeb } from "tamagui";
-import { mediaLibraryName } from "../constants/albums";
-import { useBoolean } from "../hooks/useBoolean";
+import { mediaLibraryName } from "../../constants/albums";
+import { useBoolean } from "../../hooks/useBoolean";
 
 const styles = StyleSheet.create({
 	camera: {

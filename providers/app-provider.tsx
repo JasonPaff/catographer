@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useColorScheme } from "react-native";
 import { TamaguiProvider, type TamaguiProviderProps } from "tamagui";
-import config from "../../tamagui.config";
+import config from "../tamagui.config";
 import DatabaseProvider from "./database-provider";
 import ThemeProvider from "./theme-provider";
 import ToastProvider from "./toast-provider";
@@ -14,9 +14,9 @@ export default function AppProvider({ children, ...props }: Omit<TamaguiProvider
 	return (
 		<TamaguiProvider config={config} defaultTheme={defaultTheme} {...props}>
 			<ThemeProvider>
-				<ToastProvider>
-					<DatabaseProvider>{children}</DatabaseProvider>
-				</ToastProvider>
+				<DatabaseProvider>
+					<ToastProvider>{children}</ToastProvider>
+				</DatabaseProvider>
 			</ThemeProvider>
 		</TamaguiProvider>
 	);
