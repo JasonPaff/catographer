@@ -33,7 +33,7 @@
 		"splash": {
 			"image": "./assets/images/catographer-splash.png",
 			"resizeMode": "contain",
-			"backgroundColor": "black"
+			"backgroundColor": "#000000"
 		},
 		"userInterfaceStyle": "automatic",
 		"version": "1.0.0",
