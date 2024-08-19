@@ -1,12 +1,15 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { type FieldValues, type UseFormProps, useForm as useHookForm } from "react-hook-form";
-import type { AnyZodObject } from "zod";
+import { type FormOptions, type Validator, useForm as useReactForm } from "@tanstack/react-form";
+import { zodValidator } from "@tanstack/zod-form-adapter";
 
-export function useForm<T extends FieldValues>(schema: AnyZodObject, options?: Omit<UseFormProps<T>, "resolver">) {
-	return useHookForm({
-		mode: "onSubmit",
-		reValidateMode: "onChange",
+type UseFormOptions<TFormData extends object> = Omit<
+	FormOptions<TFormData, Validator<TFormData>>,
+	"validatorAdapter" | "onSubmit"
+> &
+	Required<Pick<FormOptions<TFormData, Validator<TFormData>>, "onSubmit">>;
+
+export function useForm<TFormData extends object>(options: UseFormOptions<TFormData>) {
+	return useReactForm<TFormData, Validator<TFormData>>({
 		...options,
-		resolver: zodResolver(schema),
+		validatorAdapter: zodValidator(),
 	});
 }

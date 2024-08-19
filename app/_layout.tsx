@@ -39,16 +39,16 @@ export default function RootLayout() {
 					}}
 				/>
 
-				{/*<Stack.Screen*/}
-				{/*	name={"settings"}*/}
-				{/*	options={{*/}
-				{/*		animation: "slide_from_right",*/}
-				{/*		gestureDirection: "horizontal",*/}
-				{/*		gestureEnabled: true,*/}
-				{/*		presentation: "modal",*/}
-				{/*		title: "Settings",*/}
-				{/*	}}*/}
-				{/*/>*/}
+				<Stack.Screen
+					name={"about"}
+					options={{
+						animation: "slide_from_right",
+						gestureDirection: "horizontal",
+						gestureEnabled: true,
+						presentation: "modal",
+						title: "About",
+					}}
+				/>
 			</Stack>
 
 			{/* always keep the app awake in development mode. */}

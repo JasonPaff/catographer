@@ -2,7 +2,7 @@ import { Plus } from "@tamagui/lucide-icons";
 import { eq } from "drizzle-orm";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Text, View, YStack } from "tamagui";
-import { AddCat } from "../../components/cats/add-cat";
+import { AddCat } from "../../components/cats-screen/add-cat";
 import { catsTable } from "../../database/schemas/cat-schema";
 import { useDatabase } from "../../hooks/use-database";
 

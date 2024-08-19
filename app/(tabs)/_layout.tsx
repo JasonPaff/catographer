@@ -1,10 +1,15 @@
 import { Camera, Cat, Settings } from "@tamagui/lucide-icons";
-import { Tabs } from "expo-router";
-import { Image } from "tamagui";
+import { Link, Tabs } from "expo-router";
+import { Button } from "tamagui";
+import { CatLogo } from "../../components/cat-logo";
 
 const CatImage = () => {
 	return (
-		<Image height={"$2"} marginRight={"$2.5"} source={require("../../assets/images/cat-icon.png")} width={"$2"} />
+		<Link asChild href={"/about"}>
+			<Button chromeless>
+				<CatLogo />
+			</Button>
+		</Link>
 	);
 };
 

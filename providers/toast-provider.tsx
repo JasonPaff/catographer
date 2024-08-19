@@ -1,5 +1,5 @@
 import { ToastProvider as Provider } from "@tamagui/toast";
-import { Toaster } from "../app/toaster";
+import { Toaster } from "../components/toaster";
 
 export default function ToastProvider({ children }: RequiredChildren) {
 	return (
