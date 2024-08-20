@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<About/> should render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "marginTop": 25,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "white",
+        "fontSize": 48,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Catographer
+  </Text>
+  <Text
+    style={
+      {
+        "color": "white",
+        "fontSize": 18,
+        "fontWeight": "semibold",
+      }
+    }
+  >
+    Developed By: Jason Paff
+  </Text>
+  <Image
+    alt="catographer logo"
+    source={1}
+    style={
+      {
+        "height": 350,
+        "marginTop": 25,
+        "objectFit": "contain",
+        "width": 350,
+      }
+    }
+    testID="cat-logo-image"
+  />
+</View>
+`;

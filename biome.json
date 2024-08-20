@@ -14,6 +14,9 @@
 		"enabled": true,
 		"ignore": ["./.tamagui/**/*", "./.expo/**/*"],
 		"rules": {
+			"complexity": {
+				"useLiteralKeys": "off"
+			},
 			"recommended": true,
 			"security": {
 				"noDangerouslySetInnerHtml": "off"

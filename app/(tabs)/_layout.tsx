@@ -1,14 +1,14 @@
-import { Camera, Cat, Settings } from "@tamagui/lucide-icons";
 import { Link, Tabs } from "expo-router";
-import { Button } from "tamagui";
-import { CatLogo } from "../../components/cat-logo";
+import { Camera, Cat, Settings } from "lucide-react-native";
+import { Pressable } from "react-native";
+import { CatLogo } from "../../components/shared/cat-logo/cat-logo";
 
 const CatImage = () => {
 	return (
 		<Link asChild href={"/about"}>
-			<Button chromeless>
+			<Pressable>
 				<CatLogo />
-			</Button>
+			</Pressable>
 		</Link>
 	);
 };

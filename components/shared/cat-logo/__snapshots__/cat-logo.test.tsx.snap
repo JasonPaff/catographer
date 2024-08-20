@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CatLogo/> should render correctly 1`] = `
+<Image
+  alt="catographer logo"
+  source={1}
+  style={
+    {
+      "height": 35,
+      "objectFit": "contain",
+      "width": 35,
+    }
+  }
+  testID="cat-logo-image"
+/>
+`;

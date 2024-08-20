@@ -30,7 +30,7 @@
 		"strictFunctionTypes": true,
 		"strictNullChecks": true,
 		"target": "es2020",
-		"types": ["node"],
+		"types": ["node", "jest"],
 		"lib": ["dom", "esnext"]
 	},
 	"exclude": ["_"],

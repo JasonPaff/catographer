@@ -1,23 +1,10 @@
-import { useMemo } from "react";
-import { useColorScheme } from "react-native";
-import { TamaguiProvider, type TamaguiProviderProps } from "tamagui";
-import config from "../tamagui.config";
 import DatabaseProvider from "./database-provider";
 import ThemeProvider from "./theme-provider";
-import ToastProvider from "./toast-provider";
 
-export function AppProvider({ children, ...props }: Omit<TamaguiProviderProps, "config">) {
-	const colorScheme = useColorScheme();
-
-	const defaultTheme = useMemo(() => (colorScheme === "dark" ? "dark" : "light"), [colorScheme]);
-
+export function AppProvider({ children }: RequiredChildren) {
 	return (
-		<TamaguiProvider config={config} defaultTheme={defaultTheme} {...props}>
-			<ThemeProvider>
-				<DatabaseProvider>
-					<ToastProvider>{children}</ToastProvider>
-				</DatabaseProvider>
-			</ThemeProvider>
-		</TamaguiProvider>
+		<ThemeProvider>
+			<DatabaseProvider>{children}</DatabaseProvider>
+		</ThemeProvider>
 	);
 }

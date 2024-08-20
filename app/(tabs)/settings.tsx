@@ -1,9 +1,5 @@
-import { Text, View } from "tamagui";
+import { Settings } from "../../components/settings-screen/settings";
 
 export default function SettingsScreen() {
-	return (
-		<View alignItems={"center"} flex={1} justifyContent={"center"}>
-			<Text fontSize={20}>Settings Screen</Text>
-		</View>
-	);
+	return <Settings />;
 }

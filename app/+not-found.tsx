@@ -1,16 +1,29 @@
 import { Link, Stack } from "expo-router";
-import { Button, Text, View } from "tamagui";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function NotFoundScreen() {
 	return (
 		<>
 			<Stack.Screen options={{ title: "Oops!" }} />
-			<View alignItems={"center"} display={"flex"} flex={1} gap={"$5"} justifyContent={"center"} margin={10}>
-				<Text fontSize={20}>This screen doesn't exist.</Text>
+			<View style={styles.container}>
+				<Text style={styles.heading}>This screen doesn't exist.</Text>
 				<Link asChild href={"/(tabs)/"}>
-					<Button>Go to home screen</Button>
+					<Pressable>Go to home screen</Pressable>
 				</Link>
 			</View>
 		</>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		alignItems: "center",
+		flex: 1,
+		gap: 10,
+		justifyContent: "center",
+		margin: 10,
+	},
+	heading: {
+		fontSize: 20,
+	},
+});
