@@ -1,28 +1,26 @@
-import { useEffect, useState } from "react";
 import { Text } from "react-native";
-import { type SelectCats, catsTable } from "../../database/schemas/cat";
-import { useDatabase } from "../../hooks/use-database";
 import { VStack } from "../shared/stack";
 
 export function CatList() {
-	const [cats, setCats] = useState<SelectCats>([]);
+	//const [cats, setCats] = useState<SelectCats>([]);
 
-	const db = useDatabase();
-
-	useEffect(() => {
-		(async () => {
-			const cats = await db.select().from(catsTable);
-			setCats(cats);
-		})();
-	}, [db]);
+	// const db = useDatabase();
+	//
+	// useEffect(() => {
+	// 	(async () => {
+	// 		const cats = await db.select().from(catTable);
+	// 		setCats(cats);
+	// 	})();
+	// }, [db]);
 
 	return (
 		<VStack>
-			{cats?.map((cat) => (
-				<Text key={cat.id}>
-					{cat.name} - {cat.age}
-				</Text>
-			))}
+			<Text>Cat List</Text>
+			{/*{cats?.map((cat) => (*/}
+			{/*	<Text key={cat.catId}>*/}
+			{/*		{cat.name} - {cat.dateOfBirth}*/}
+			{/*	</Text>*/}
+			{/*))}*/}
 		</VStack>
 	);
 }

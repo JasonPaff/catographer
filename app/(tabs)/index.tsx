@@ -1,12 +1,9 @@
-import { StyleSheet, View } from "react-native";
-import { AddCat } from "../../components/cats-screen/add-cat";
-import { CatList } from "../../components/cats-screen/cat-list";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Cats() {
 	return (
 		<View style={styles.container}>
-			<AddCat />
-			<CatList />
+			<Text>Hello!</Text>
 		</View>
 	);
 }

@@ -1,1 +1,1 @@
-export const databaseName = "catographer-database";
+export const databaseName = "catographer-database-test";

@@ -1,4 +1,4 @@
-import { SplashScreen, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { KeepAwake } from "../components/shared/keep-awake";
 import { AppProvider } from "../providers/app-provider";
 
@@ -11,7 +11,7 @@ export const unstable_settings = {
 };
 
 // prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+//SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	return (
