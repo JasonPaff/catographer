@@ -7,12 +7,12 @@ describe("initial value", () => {
 		expect(result.current[0]).toBe(false);
 	});
 
-	it("should be false when a false initial value is provided", () => {
+	it("should be false when an initial value of false is provided", () => {
 		const { result } = renderHook(() => useBoolean(false));
 		expect(result.current[0]).toBe(false);
 	});
 
-	it("should be true when a true initial value is provided", () => {
+	it("should be true when an initial value of true is provided", () => {
 		const { result } = renderHook(() => useBoolean(true));
 		expect(result.current[0]).toBe(true);
 	});

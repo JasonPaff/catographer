@@ -13,6 +13,7 @@ exports[`<Settings/> should render correctly 1`] = `
   <Text
     style={
       {
+        "color": "white",
         "fontSize": 20,
       }
     }
