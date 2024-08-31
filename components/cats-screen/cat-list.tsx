@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Text } from "react-native";
-import { type SelectCats, catsTable } from "../../database/schemas/create-cat";
+import { type SelectCats, catsTable } from "../../database/schemas/cat";
 import { useDatabase } from "../../hooks/use-database";
 import { VStack } from "../shared/stack";
 
