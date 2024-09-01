@@ -1,123 +1,58 @@
-import { StyleSheet, Text, View } from "react-native";
-
-const styles = StyleSheet.create({
-	container: {
-		alignItems: "center",
-		flex: 1,
-		justifyContent: "center",
-	},
-	text: {
-		color: "white",
-		fontSize: 20,
-	},
-});
+import { Plus } from "lucide-react-native";
+import { Modal, Pressable, Text, TextInput, View } from "react-native";
+import { type CreateCat, catTable, createCatSchema } from "../../database/schemas/cat";
+import { useBoolean } from "../../hooks/use-boolean/use-boolean";
+import { useDatabase } from "../../hooks/use-database";
+import { useForm } from "../../hooks/use-form";
 
 export function AddCat() {
+	const [isAddCatModalOpen, setIsAddCatModalOpen] = useBoolean();
+
+	const db = useDatabase();
+
+	const form = useForm<CreateCat>({
+		defaultValues: {
+			name: "",
+			dateOfBirth: null,
+		},
+		onSubmit: (formData) => {
+			console.log(formData.value);
+			db.insert(catTable).values(formData.value);
+		},
+	});
+
 	return (
-		<View style={styles.container}>
-			<Text style={styles.text}>Under Construction</Text>
+		<View className={"items-center flex-1 justify-center"}>
+			<Pressable className={"bg-red-300 text-white p-4 inline-flex flex-row"} onPress={setIsAddCatModalOpen.on}>
+				<Text>Add Cat</Text>
+				<Plus color={"white"} size={25} />
+			</Pressable>
+
+			<Modal
+				animationType={"slide"}
+				onRequestClose={setIsAddCatModalOpen.off}
+				transparent={true}
+				visible={isAddCatModalOpen}
+			>
+				<form.Field
+					name={"name"}
+					validators={{
+						onChange: createCatSchema.shape.name,
+					}}
+				>
+					{(field) => (
+						<TextInput
+							onChangeText={field.handleChange}
+							placeholder={"Enter your cats name"}
+							value={field.state.value}
+						/>
+					)}
+				</form.Field>
+
+				<Pressable className={"bg-red-300 p-4"} onPress={setIsAddCatModalOpen.off}>
+					<Text>Close</Text>
+				</Pressable>
+			</Modal>
 		</View>
-		// <Dialog modal onOpenChange={setIsDialogOpen.force} open={isDialogOpen}>
-		// 	<Dialog.Trigger asChild>
-		// 		<Button alignSelf={"center"} icon={<Plus size={25} />} onPress={setIsDialogOpen.on} size={"$2.5"} />
-		// 	</Dialog.Trigger>
-		//
-		// 	{/* display a sheet when on mobile devices */}
-		// 	<Adapt platform={"touch"} when={"sm"}>
-		// 		<Sheet animation={"medium"} dismissOnSnapToBottom modal zIndex={200000}>
-		// 			<Sheet.Frame backgroundColor={dark ? "$gray6Dark" : "$gray6light"} padding={"$4"} gap={"$1"}>
-		// 				<Adapt.Contents />
-		// 			</Sheet.Frame>
-		// 			<Sheet.Overlay animation={"lazy"} enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
-		// 		</Sheet>
-		// 	</Adapt>
-		//
-		// 	{/* display a dialog when on non-mobile devices */}
-		// 	<Dialog.Portal>
-		// 		<Dialog.Overlay
-		// 			animation={"slow"}
-		// 			enterStyle={{ opacity: 0 }}
-		// 			exitStyle={{ opacity: 0 }}
-		// 			opacity={0.5}
-		// 			key={"overlay"}
-		// 		/>
-		//
-		// 		<Dialog.Content
-		// 			animateOnly={["transform", "opacity"]}
-		// 			animation={[
-		// 				"quicker",
-		// 				{
-		// 					opacity: {
-		// 						overshootClamping: true,
-		// 					},
-		// 				},
-		// 			]}
-		// 			enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.9 }}
-		// 			exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
-		// 			key={"content"}
-		// 		>
-		// 			<Dialog.Title>Add Cat</Dialog.Title>
-		// 			<Separator
-		// 				borderColor={dark ? "$gray8Dark" : "$gray8light"}
-		// 				borderWidth={"$1"}
-		// 				marginVertical={"$1"}
-		// 			/>
-		//
-		// 			<View>
-		// 				<form.Field
-		// 					name={"name"}
-		// 					validators={{
-		// 						onChange: createCatSchema.shape.name,
-		// 					}}
-		// 				>
-		// 					{(field) => (
-		// 						<FormInput
-		// 							errorMessage={field.state.meta.errors.join("").split(",")?.[0]}
-		// 							focusOnMount
-		// 							labelText={"Name"}
-		// 							placeholder={"Enter the cats name"}
-		// 							size={"$4"}
-		// 							value={field.state.value}
-		// 							{...field}
-		// 						/>
-		// 					)}
-		// 				</form.Field>
-		//
-		// 				<form.Field
-		// 					name={"age"}
-		// 					validators={{
-		// 						onChange: createCatSchema.shape.age,
-		// 					}}
-		// 				>
-		// 					{(field) => (
-		// 						<FormInput
-		// 							errorMessage={field.state.meta.errors.join("").split(",")?.[0]}
-		// 							keyboardType={"numeric"}
-		// 							labelText={"Age"}
-		// 							name={field.name}
-		// 							handleBlur={field.handleBlur}
-		// 							handleChange={(text) => field.handleChange(Number(text))}
-		// 							placeholder={"Enter the cats name"}
-		// 							size={"$4"}
-		// 							value={String(field.state.value ?? "")}
-		// 						/>
-		// 					)}
-		// 				</form.Field>
-		//
-		// 				<XStack alignSelf={"flex-end"} gap={"$2"} marginTop={"$2"}>
-		// 					<Button aria-label={"Cancel"} chromeless onPress={setIsDialogOpen.off}>
-		// 						Cancel
-		// 					</Button>
-		//
-		// 					<Form.Trigger asChild>
-		// 						<Button aria-label={"Save"} onPress={form.handleSubmit}>
-		// 							Save
-		// 						</Button>
-		// 					</Form.Trigger>
-		// 				</XStack>
-		// 			</View>
-		// 		</Dialog.Content>
-		// 	</Dialog.Portal>
-		// </Dialog>
 	);
 }

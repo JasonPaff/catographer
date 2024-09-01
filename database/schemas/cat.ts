@@ -3,7 +3,7 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const catTable = sqliteTable("cat", {
-	catId: integer("id").primaryKey().notNull(),
+	catId: integer("cat_id").primaryKey().notNull(),
 	name: text("name", { length: 50 }).notNull(),
 	dateOfBirth: text("date_of_birth"),
 });
@@ -14,6 +14,7 @@ export const createCatSchema = createInsertSchema(catTable, {
 		.string()
 		.min(1, { message: "Name is required." })
 		.max(50, { message: "Name cannot be more than 50 characters." }),
+	dateOfBirth: z.string().datetime({ offset: true }).nullable,
 }).omit({
 	catId: true,
 });

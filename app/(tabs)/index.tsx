@@ -1,16 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 export default function Cats() {
 	return (
-		<View style={styles.container}>
-			<Text>Hello!</Text>
+		<View className={"items-center justify-center flex-1"}>
+			<Text>Hello</Text>
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		alignItems: "center",
-		flex: 1,
-	},
-});

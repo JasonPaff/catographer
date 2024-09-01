@@ -1,14 +1,14 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "0095dd6b-2533-43ee-85bd-8b66f7a3e97a",
+  "id": "63af86b1-e49c-489d-b7ec-ed9193977355",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "cat": {
       "name": "cat",
       "columns": {
-        "id": {
-          "name": "id",
+        "cat_id": {
+          "name": "cat_id",
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
@@ -70,15 +70,15 @@
         }
       },
       "foreignKeys": {
-        "catNickname_cat_id_cat_id_fk": {
-          "name": "catNickname_cat_id_cat_id_fk",
+        "catNickname_cat_id_cat_cat_id_fk": {
+          "name": "catNickname_cat_id_cat_cat_id_fk",
           "tableFrom": "catNickname",
           "tableTo": "cat",
           "columnsFrom": [
             "cat_id"
           ],
           "columnsTo": [
-            "id"
+            "cat_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"

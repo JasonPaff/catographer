@@ -1,17 +1,10 @@
-import { View, type ViewStyle } from "react-native";
+import { View } from "react-native";
+import { cn } from "../../utils/tailwind-utils";
 
-export function HStack({ children, ...style }: RequiredChildren<ViewStyle>) {
-	return (
-		<View flex={1} flexDirection={"row"} {...style}>
-			{children}
-		</View>
-	);
+export function HStack({ children, className }: RequiredChildrenClassName) {
+	return <View className={cn("flex-1 flex-row", className)}>{children}</View>;
 }
 
-export function VStack({ children, ...style }: RequiredChildren<ViewStyle>) {
-	return (
-		<View flex={1} flexDirection={"column"} {...style}>
-			{children}
-		</View>
-	);
+export function VStack({ children, className }: RequiredChildrenClassName) {
+	return <View className={cn("flex-1 flex-col gap-5", className)}>{children}</View>;
 }

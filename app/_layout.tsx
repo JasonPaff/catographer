@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { KeepAwake } from "../components/shared/keep-awake";
 import { AppProvider } from "../providers/app-provider";
+import "../global.css";
 
 // catch any errors thrown by the Layout component.
 export { ErrorBoundary } from "expo-router";
@@ -11,7 +12,7 @@ export const unstable_settings = {
 };
 
 // prevent the splash screen from auto-hiding before asset loading is complete.
-//SplashScreen.preventAutoHideAsync();
+// void preventAutoHideAsync();
 
 export default function RootLayout() {
 	return (
